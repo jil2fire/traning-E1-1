@@ -262,6 +262,8 @@ $ curl http://localhost:8000
 - `-p 호스트포트:컨테이너포트` 로 외부에서 컨테이너 내부 서비스에 접속 가능해진다.
 - 접속 대상 정적 파일: [`webfiles/`](./webfiles)
 
+![브라우저 접속 화면 (localhost:8000)](./images/browser.png)
+
 ---
 
 ## 11. 바인드 마운트 반영 (호스트 변경 전/후)
@@ -332,6 +334,8 @@ fe2f4f7 first commit: add Dockerfile and practice files
 - **Git(로컬 버전관리)** 과 **GitHub(원격 협업 플랫폼)** 의 역할 차이를 적용: 로컬에서 commit으로 이력을 남기고, push로 원격(GitHub)에 공유한다.
 - 저장소: https://github.com/jil2fire/traning-E1-1 (공개)
 
+![GitHub 저장소 연동 완료](./images/github.png)
+
 ---
 
 ## 14. 트러블슈팅 (문제 → 원인 가설 → 확인 → 해결)
@@ -380,6 +384,9 @@ fe2f4f7 first commit: add Dockerfile and practice files
 ├── Dockerfile          # 커스텀 웹서버 이미지 정의
 ├── README.md           # 본 문서 (전체 수행 로그·증거)
 ├── hello.txt           # 터미널/권한 실습 파일
+├── images/             # 증거 스크린샷
+│   ├── browser.png     # 포트 매핑 브라우저 접속 화면
+│   └── github.png      # GitHub 저장소 연동 화면
 ├── practice/           # 터미널 실습 디렉토리
 └── webfiles/           # 바인드 마운트 대상 정적 파일
     ├── index.html

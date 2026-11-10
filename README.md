@@ -354,8 +354,8 @@ $ docker run --rm -v my-volume:/data ubuntu cat /data/test.txt   # 새 컨테이
 $ git --version
 git version 2.53.0
 
-$ git config --global user.name "jil2fire"
-$ git config --global user.email "hjhoffice721@gmail.com"
+$ git config --global user.name "******"
+$ git config --global user.email "******@gmail.com"
 $ git config --global init.defaultBranch main    # 새 저장소 기본 브랜치를 main으로 설정
 $ git config --list
 user.name=jil2fire

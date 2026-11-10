@@ -27,7 +27,7 @@
 - [x] 터미널 기본 조작 (pwd, whoami, ls -la, cd, mkdir, touch, cat, echo, cp, mv, rm)
 - [x] 파일/디렉토리 권한 변경 실습 (전/후 비교)
 - [x] Docker 설치 및 데몬 점검 (docker --version / docker info)
-- [x] Docker 운영 (images, ps, ps -a, logs, stats)
+- [x] Docker 운영 (images, ps, ps -a, logs, stats, stop)
 - [x] 컨테이너 실행 (hello-world) 및 ubuntu 내부 진입 (attach/exec 관찰)
 - [x] Dockerfile 직접 작성 및 커스텀 이미지 빌드 (my-web-server:1.0)
 - [x] 포트 매핑 및 접속 검증 (-p 8000:8000 → curl)
@@ -229,6 +229,27 @@ exit
 - `docker attach` : 실행 중 컨테이너의 메인 프로세스 화면에 그대로 붙음(입출력 공유).
 → 운영 중 컨테이너 내부 점검에는 **exec**가 안전하다.
 
+### 8.4 컨테이너 중지 (docker stop)
+```bash
+$ docker run -d -p 8000:8000 --name stop-test my-web-server:1.0
+1dc8a31ab103...
+
+$ docker ps                      # 실행 중 (STATUS: Up)
+CONTAINER ID   IMAGE               STATUS                  PORTS                     NAMES
+1dc8a31ab103   my-web-server:1.0   Up Less than a second   0.0.0.0:8000->8000/tcp    stop-test
+
+$ docker stop stop-test          # 정상 종료 요청
+stop-test
+
+$ docker ps -a                   # 중지 후 (STATUS: Exited)
+CONTAINER ID   IMAGE               STATUS                 NAMES
+1dc8a31ab103   my-web-server:1.0   Exited (137) ... ago   stop-test
+
+$ docker rm stop-test            # 테스트 컨테이너 정리
+stop-test
+```
+- `docker stop`은 컨테이너에 종료 신호를 보내 **정상 중지**시킨다. `Up` → `Exited` 로 상태가 바뀌는 것으로 확인.
+
 ---
 
 ## 9. 커스텀 이미지 제작 (Dockerfile)
@@ -335,13 +356,15 @@ git version 2.53.0
 
 $ git config --global user.name "jil2fire"
 $ git config --global user.email "hjhoffice721@gmail.com"
+$ git config --global init.defaultBranch main    # 새 저장소 기본 브랜치를 main으로 설정
 $ git config --list
 user.name=jil2fire
 user.email=hjhoffice721@gmail.com
+init.defaultbranch=main
 credential.helper=store
 
 $ git init                 # 로컬 저장소 초기화
-$ git branch -m main       # 기본 브랜치 main
+$ git branch -m main       # 현재 브랜치 이름을 main으로 변경
 $ git add .                # 스테이징
 $ git commit -m "first commit: add Dockerfile and practice files"
 $ git remote add origin https://github.com/jil2fire/traning-E1-1.git

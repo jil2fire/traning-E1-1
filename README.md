@@ -39,7 +39,27 @@
 
 ## 4. 터미널 조작 로그
 
-### 4.1 위치/목록/내용 확인
+### 4.1 디렉터리 생성 / 이동 (mkdir · cd)
+```bash
+$ cd ~                     # 홈 디렉터리로 이동
+$ mkdir codyssey           # 작업 폴더 생성
+$ cd codyssey              # 생성한 폴더로 진입
+$ pwd                      # 이동 성공 확인
+/home/cari6/codyssey
+
+$ mkdir practice           # 실습용 하위 폴더 생성
+$ cd practice              # 만든 폴더로 진입
+$ pwd
+/home/cari6/codyssey/practice
+
+$ cd ..                    # 상위(부모) 폴더로 복귀
+$ pwd
+/home/cari6/codyssey
+```
+- `mkdir`·`cd`는 성공 시 별도 출력이 없으므로, `pwd`로 폴더 생성·이동 결과를 확인했다.
+- `cd ~`는 홈 디렉터리, `cd ..`는 상위(부모) 폴더로 이동한다.
+
+### 4.2 위치/목록/내용 확인
 ```bash
 $ pwd
 /home/cari6/codyssey
@@ -63,7 +83,7 @@ Hello Codyssey
 ```
 - `ls -la` : `-l`(자세히) + `-a`(숨김 파일 `.git` 등 포함)
 
-### 4.2 생성 / 이어쓰기 / 복사 / 이름변경 / 삭제
+### 4.3 생성 / 이어쓰기 / 복사 / 이름변경 / 삭제
 ```bash
 $ touch hello.txt
 $ echo "Hello Codyssey" > hello.txt      # > 덮어쓰기

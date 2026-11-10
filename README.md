@@ -250,6 +250,33 @@ stop-test
 ```
 - `docker stop`은 컨테이너에 종료 신호를 보내 **정상 중지**시킨다. `Up` → `Exited` 로 상태가 바뀌는 것으로 확인.
 
+### 8.5 docker exec 상세 (실행 중 컨테이너에 명령 보내기)
+`docker exec`는 **이미 실행 중인 컨테이너 안에서 새 명령(프로세스)을 실행**한다. 컨테이너를 멈추지 않고 내부를 점검하거나 파일을 확인할 때 쓴다.
+
+```bash
+$ docker run -d --name exec-test my-web-server:1.0   # 백그라운드 실행
+e04a2b78d40c...
+
+$ docker exec exec-test whoami        # 컨테이너 안에서 명령 실행 → 안의 사용자 확인
+root
+
+$ docker exec exec-test ls /          # 컨테이너 안의 루트 목록
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+
+$ docker ps --filter "name=exec-test" --format "table {{.Names}}\t{{.Status}}"
+NAMES       STATUS
+exec-test   Up Less than a second     # exec 실행 후에도 컨테이너는 계속 살아있음
+
+$ docker rm -f exec-test              # 정리 (-f: 실행 중이어도 강제 삭제)
+exec-test
+```
+
+**명령 구조:** `docker exec [옵션] <컨테이너> <실행할 명령>`
+- `docker exec <컨테이너> ls /` : 명령을 **한 번 실행하고 끝**(결과만 출력). 컨테이너는 그대로 유지.
+- `docker exec -it <컨테이너> bash` : `-it`를 붙이면 컨테이너 안 **bash로 직접 진입**해 대화형으로 작업. `exit` 해도 그 bash만 종료되고 **컨테이너는 계속 실행**된다.
+
+> ⚠️ `run` vs `exec` 혼동 주의: `docker run`은 **새 컨테이너를 만들어** 실행하고, `docker exec`는 **이미 돌아가는 컨테이너**에 명령을 보낸다. (11절 바인드 마운트 검증에서도 `docker exec my-web ls /app`로 이 명령을 사용했다.)
+
 ---
 
 ## 9. 커스텀 이미지 제작 (Dockerfile)
